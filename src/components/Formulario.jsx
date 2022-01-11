@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
+import {
+  obtenerDiferenciaAnios,
+  getAumentoMarca,
+  getAumentoTipoPlan,
+} from "../helpers/formulario-helper";
 
 const FormStyle = styled.form`
   width: 100%;
@@ -9,6 +14,7 @@ const Campo = styled.div`
   margin: 2rem 0;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 `;
@@ -17,10 +23,20 @@ const Select = styled.select`
   flex-basis: 75%;
   flex-grow: 0;
   padding: 0.5rem;
+  background-color: #eee;
+  border-radius: 5px;
+  border: 2px solid #ddd;
+`;
+
+const Option = styled.option`
+  padding: 1rem;
+  background-color: #eee;
 `;
 
 const Label = styled.label`
   margin: 0 5rem 0 1rem;
+  color: #333;
+  -webkit-appearance: none;
 `;
 
 const ContenedorRadio = styled.div`
@@ -29,6 +45,7 @@ const ContenedorRadio = styled.div`
   padding: 0.5rem;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const LabelRadio = styled.label`
@@ -52,52 +69,136 @@ const InputSubmit = styled.input`
     box-shadow: 2px 2px 1px gray;
   }
 `;
+
+const Error = styled.div`
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 2rem;
+  margin: 1rem 0;
+`;
 var yearsArray = [];
-for (let i = 2000; i <= 2022; i++) {
+for (let i = new Date().getFullYear(); i >= 2000; i--) {
   yearsArray.push(i);
 }
-console.log(yearsArray);
+
 const Formulario = () => {
+  const [data, setData] = useState({
+    marca: "",
+    anio: "",
+    tipoPlan: "",
+  });
+
+  const [error, setError] = useState(false);
+
+  const { marca, anio, tipoPlan } = data;
+  const handleInputChange = (e) => {
+    const nuevoState = data;
+    nuevoState[`${e.target.name}`] = `${e.target.value}`;
+    setData({ ...nuevoState });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!marca.trim() || !anio.trim() || !tipoPlan.trim()) {
+      setError(true);
+      return;
+    }
+    setError(false);
+
+    const precioBase = 2000;
+    var precio = precioBase;
+    precio = getAumentoMarca(marca, precio);
+
+    const diferenciaAnio = obtenerDiferenciaAnios(anio);
+    if (diferenciaAnio) {
+      const nuevoPorcentaje = 100 - diferenciaAnio * 3;
+      precio = (nuevoPorcentaje * precio) / 100;
+    }
+    precio = getAumentoTipoPlan(tipoPlan, precio);
+
+    console.log("el precio final es", precio);
+  };
   return (
-    <FormStyle>
-      <Campo>
-        <Label htmlFor="">Marca </Label>
-        <Select name="" id="" defaultValue={"--Seleccione--"}>
-          <option value="--Seleccione--" disabled>
-            --Seleccione--
-          </option>
-          <option value="Americano">Americano</option>
-          <option value="Asiático">Asiático</option>
-          <option value="Europeo">Europeo</option>
-        </Select>
-      </Campo>
+    <>
+      {error ? (
+        <Error>
+          Completa correctamente el formulario. Todos los campos son
+          obligatorios.
+        </Error>
+      ) : null}
+      <FormStyle onSubmit={handleSubmit}>
+        <Campo>
+          <Label htmlFor="marca">Marca </Label>
+          <Select
+            name="marca"
+            id="marca"
+            onChange={handleInputChange}
+            required
+            value={!marca ? "--Seleccione--" : marca}
+          >
+            <Option value="--Seleccione--" disabled>
+              --Seleccione--
+            </Option>
+            <Option value="Americano">Americano</Option>
+            <Option value="Asiatico">Asiático</Option>
+            <Option value="Europeo">Europeo</Option>
+          </Select>
+        </Campo>
 
-      <Campo>
-        <Label htmlFor="">Año </Label>
-        <Select name="" id="" defaultValue={"--Seleccione--"}>
-          <option value="--Seleccione--" disabled>
-            --Seleccione--
-          </option>
-          {yearsArray.map((year) => (
-            <option value={year}>{year}</option>
-          ))}
-        </Select>
-      </Campo>
+        <Campo>
+          <Label htmlFor="anio">Año </Label>
+          <Select
+            name="anio"
+            id="anio"
+            onChange={handleInputChange}
+            required
+            value={!anio ? "--Seleccione--" : anio}
+          >
+            <Option value="--Seleccione--" disabled>
+              --Seleccione--
+            </Option>
+            {yearsArray.map((year) => (
+              <Option key={year} value={year}>
+                {year}
+              </Option>
+            ))}
+          </Select>
+        </Campo>
 
-      <Campo>
-        <Label htmlFor="">Plan </Label>
-        <ContenedorRadio>
-          <LabelRadio htmlFor="">
-            <input type="radio" name="plan" id="" value={"basico"} /> Básico
-          </LabelRadio>
-          <LabelRadio htmlFor="">
-            <input type="radio" name="plan" id="" value={"completo"} /> Completo
-          </LabelRadio>
-        </ContenedorRadio>
-      </Campo>
+        <Campo>
+          <Label htmlFor="">Plan </Label>
+          <ContenedorRadio>
+            <LabelRadio htmlFor="tipo-basico">
+              <input
+                type="radio"
+                name="tipoPlan"
+                id="tipo-basico"
+                value={"basico"}
+                onChange={handleInputChange}
+                required
+                checked={tipoPlan === "basico"}
+              />{" "}
+              Básico
+            </LabelRadio>
+            <LabelRadio htmlFor="tipo-completo">
+              <input
+                type="radio"
+                name="tipoPlan"
+                id="tipo-completo"
+                value={"completo"}
+                onChange={handleInputChange}
+                required
+                checked={tipoPlan === "completo"}
+              />{" "}
+              Completo
+            </LabelRadio>
+          </ContenedorRadio>
+        </Campo>
 
-      <InputSubmit type="submit" value="COTIZAR" />
-    </FormStyle>
+        <InputSubmit type="submit" value="COTIZAR" />
+      </FormStyle>
+    </>
   );
 };
 
