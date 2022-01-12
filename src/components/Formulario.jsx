@@ -135,7 +135,7 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
         marca: marca,
         anio: anio,
         tipoPlan: tipoPlan,
-        precioFinal: precio,
+        precioFinal: parseFloat(precio).toFixed(2),
       });
     }, 2000);
   };

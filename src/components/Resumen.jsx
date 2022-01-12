@@ -48,11 +48,7 @@ const Resumen = ({ resultado: { anio, marca, tipoPlan } }) => {
  * tipoPlan: basico, completo
  */
 Resumen.propTypes = {
-  resultado: {
-    anio: PropTypes.string.isRequired,
-    marca: PropTypes.string.isRequired,
-    tipoPlan: PropTypes.string.isRequired,
-  },
+  resultado: PropTypes.object.isRequired,
 };
 
 export default Resumen;

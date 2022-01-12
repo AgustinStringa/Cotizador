@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
+import PropTypes from "prop-types";
+
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const ContenedorMessage = styled.div`
@@ -47,6 +49,10 @@ const Resultado = ({ precioFinal }) => {
       </ContenedorMessage>
     );
   }
+};
+
+Resultado.propTypes = {
+  precioFinal: PropTypes.string.isRequired,
 };
 
 export default Resultado;
