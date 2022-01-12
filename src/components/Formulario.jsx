@@ -110,12 +110,12 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCargando(true);
     if (!marca.trim() || !anio.trim() || !tipoPlan.trim()) {
       setError(true);
       return;
     }
     setError(false);
+    setCargando(true);
 
     const precioBase = 2000;
     var precio = precioBase;
