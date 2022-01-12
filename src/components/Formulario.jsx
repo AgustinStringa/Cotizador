@@ -5,9 +5,11 @@ import {
   getAumentoMarca,
   getAumentoTipoPlan,
 } from "../helpers/formulario-helper";
+import PropTypes from "prop-types";
 
 const FormStyle = styled.form`
   width: 100%;
+  margin: 1rem 0;
 `;
 
 const Campo = styled.div`
@@ -46,6 +48,14 @@ const ContenedorRadio = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+
+  @media (max-width: 769px) {
+    flex-direction: column;
+  }
+  & > label {
+    text-align: left;
+    margin: 1rem 0;
+  }
 `;
 
 const LabelRadio = styled.label`
@@ -82,7 +92,7 @@ for (let i = new Date().getFullYear(); i >= 2000; i--) {
   yearsArray.push(i);
 }
 
-const Formulario = () => {
+const Formulario = ({ actualizarCotizacion, setCargando }) => {
   const [data, setData] = useState({
     marca: "",
     anio: "",
@@ -100,6 +110,7 @@ const Formulario = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setCargando(true);
     if (!marca.trim() || !anio.trim() || !tipoPlan.trim()) {
       setError(true);
       return;
@@ -116,8 +127,17 @@ const Formulario = () => {
       precio = (nuevoPorcentaje * precio) / 100;
     }
     precio = getAumentoTipoPlan(tipoPlan, precio);
+    precio = parseFloat(precio).toFixed(2);
 
-    console.log("el precio final es", precio);
+    setTimeout(() => {
+      setCargando(false);
+      actualizarCotizacion({
+        marca: marca,
+        anio: anio,
+        tipoPlan: tipoPlan,
+        precioFinal: precio,
+      });
+    }, 2000);
   };
   return (
     <>
@@ -202,4 +222,12 @@ const Formulario = () => {
   );
 };
 
+/**
+ * actualizarCotizacion: funcion que actualiza el state general de la App. Se crea para no pasar directamente setCotizacion y "ejecutar la misma solo desde la app"
+ * setCargando: funcion que cambia el valor del state cargando, encargado de la visibilidad del spinner de carga
+ */
+Formulario.propTypes = {
+  actualizarCotizacion: PropTypes.func.isRequired,
+  setCargando: PropTypes.func.isRequired,
+};
 export default Formulario;
