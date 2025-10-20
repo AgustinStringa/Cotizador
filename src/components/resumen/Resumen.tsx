@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
 import { capitalize } from "@helpers/resumen-helper";
-import type { Resultado } from "@core/resultado.ts";
 import type { Cotizacion } from "@core/cotizacion.ts";
 
 const WrapResultado = styled.div`
