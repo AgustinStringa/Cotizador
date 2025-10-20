@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 
@@ -26,7 +25,7 @@ const TextoCotizacion = styled.p`
   font-weight: bold;
 `;
 
-const Resultado = ({ precioFinal }) => {
+const ResultadoComponent = ({ precioFinal }: { precioFinal: number | undefined | null }) => {
   if (precioFinal) {
     return (
       <ContenedorCotizacion>
@@ -51,8 +50,8 @@ const Resultado = ({ precioFinal }) => {
   }
 };
 
-Resultado.propTypes = {
+ResultadoComponent.propTypes = {
   precioFinal: PropTypes.string.isRequired,
 };
 
-export default Resultado;
+export default ResultadoComponent;

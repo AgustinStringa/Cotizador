@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import styled from "@emotion/styled";
 import {
-  obtenerDiferenciaAnios,
-  getAumentoMarca,
-  getAumentoTipoPlan,
-} from "../helpers/formulario-helper";
+  getDescuentoByAnio,
+  getAumentoByMarca as getAumentoByMarca,
+  getAumentoByTipoPlan as getAumentoByTipoPlan,
+  TipoPlan,
+} from "@helpers/formulario-helper";
 import PropTypes from "prop-types";
+import type { Cotizacion } from "@core/cotizacion.ts";
 
 const FormStyle = styled.form`
   width: 100%;
@@ -36,9 +38,11 @@ const Option = styled.option`
 `;
 
 const Label = styled.label`
-  margin: 0 5rem 0 1rem;
+  margin: 0 3rem 0 1rem;
   color: #333;
+  appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
 `;
 
 const ContenedorRadio = styled.div`
@@ -87,30 +91,27 @@ const Error = styled.div`
   padding: 2rem;
   margin: 1rem 0;
 `;
-var yearsArray = [];
+var yearsArray: number[] = [];
 for (let i = new Date().getFullYear(); i >= 2000; i--) {
   yearsArray.push(i);
 }
 
-const Formulario = ({ actualizarCotizacion, setCargando }) => {
-  const [data, setData] = useState({
-    marca: "",
-    anio: "",
-    tipoPlan: "",
-  });
+const FormularioComponent = ({ actualizarCotizacion, setCargando }: { actualizarCotizacion: Function, setCargando: Function }) => {
+  const [formData, setFormData] = useState<Cotizacion>({});
 
   const [error, setError] = useState(false);
 
-  const { marca, anio, tipoPlan } = data;
-  const handleInputChange = (e) => {
-    const nuevoState = data;
-    nuevoState[`${e.target.name}`] = `${e.target.value}`;
-    setData({ ...nuevoState });
+  const { marca, anio, tipoPlan } = formData;
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const nuevoState = formData;
+    const key = e.target.name;
+    nuevoState[key] = `${e.target.value}`;
+    setFormData({ ...nuevoState });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any): void => {
     e.preventDefault();
-    if (!marca.trim() || !anio.trim() || !tipoPlan.trim()) {
+    if (!marca || (!anio) || !tipoPlan) {
       setError(true);
       return;
     }
@@ -118,16 +119,12 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
     setCargando(true);
 
     const precioBase = 2000;
-    var precio = precioBase;
-    precio = getAumentoMarca(marca, precio);
+    let precio = precioBase;
 
-    const diferenciaAnio = obtenerDiferenciaAnios(anio);
-    if (diferenciaAnio) {
-      const nuevoPorcentaje = 100 - diferenciaAnio * 3;
-      precio = (nuevoPorcentaje * precio) / 100;
-    }
-    precio = getAumentoTipoPlan(tipoPlan, precio);
-    precio = parseFloat(precio).toFixed(2);
+    precio = getAumentoByMarca(marca, precio);
+    precio = getDescuentoByAnio(anio, precio);
+    precio = getAumentoByTipoPlan(tipoPlan == TipoPlan.BASICO ? TipoPlan.BASICO : TipoPlan.COMPLETO, precio);
+    precio = parseFloat(precio.toFixed(2));
 
     setTimeout(() => {
       setCargando(false);
@@ -135,9 +132,9 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
         marca: marca,
         anio: anio,
         tipoPlan: tipoPlan,
-        precioFinal: parseFloat(precio).toFixed(2),
+        precioFinal: parseFloat(precio.toString()).toFixed(2),
       });
-    }, 2000);
+    }, Math.floor(Math.random() * 1000) + 2000);
   };
   return (
     <>
@@ -149,7 +146,7 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
       ) : null}
       <FormStyle onSubmit={handleSubmit}>
         <Campo>
-          <Label htmlFor="marca">Marca </Label>
+          <Label htmlFor="marca">Marca</Label>
           <Select
             name="marca"
             id="marca"
@@ -167,7 +164,7 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
         </Campo>
 
         <Campo>
-          <Label htmlFor="anio">Año </Label>
+          <Label htmlFor="anio">Año</Label>
           <Select
             name="anio"
             id="anio"
@@ -187,10 +184,11 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
         </Campo>
 
         <Campo>
-          <Label htmlFor="">Plan </Label>
+          <Label htmlFor="">Plan</Label>
           <ContenedorRadio>
             <LabelRadio htmlFor="tipo-basico">
               <input
+                title="Tipo de plan basico"
                 type="radio"
                 name="tipoPlan"
                 id="tipo-basico"
@@ -203,6 +201,7 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
             </LabelRadio>
             <LabelRadio htmlFor="tipo-completo">
               <input
+                title="Tipo de plan completo"
                 type="radio"
                 name="tipoPlan"
                 id="tipo-completo"
@@ -226,8 +225,8 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
  * actualizarCotizacion: funcion que actualiza el state general de la App. Se crea para no pasar directamente setCotizacion y "ejecutar la misma solo desde la app"
  * setCargando: funcion que cambia el valor del state cargando, encargado de la visibilidad del spinner de carga
  */
-Formulario.propTypes = {
+FormularioComponent.propTypes = {
   actualizarCotizacion: PropTypes.func.isRequired,
   setCargando: PropTypes.func.isRequired,
 };
-export default Formulario;
+export default FormularioComponent;

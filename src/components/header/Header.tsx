@@ -1,9 +1,9 @@
-import React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
+
 const ContenedorHeader = styled.header`
   background-color: #26c6da;
-  padding: 10px;
+  padding: 1rem;
   font-weight: bold;
   color: #ffffff;
 `;
@@ -12,16 +12,15 @@ const H1Header = styled.h1`
   color: #ffffff;
   font-weight: bold;
   font-size: 2.5rem;
-  font-family: "Slabo 27px", serif;
 `;
-const Header = ({ titulo }) => {
+const HeaderComponent = ({ titulo }: { titulo: string }) => {
   return (
     <ContenedorHeader>
-      <H1Header>{titulo}</H1Header>
+      <H1Header >{titulo}</H1Header>
     </ContenedorHeader>
   );
 };
-Header.propTypes = {
+HeaderComponent.propTypes = {
   titulo: PropTypes.string.isRequired,
 };
-export default Header;
+export default HeaderComponent;
