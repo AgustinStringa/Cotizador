@@ -1,70 +1,131 @@
-# Getting Started with Create React App
+﻿# Cotizador de seguros automóviles
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web desarrollada con React y Vite para simular la cotización de un seguro automotor en función de la marca del vehículo, el año del auto y el tipo de plan elegido.
 
-## Available Scripts
+## Descripción
 
-In the project directory, you can run:
+La app permite completar un formulario con:
 
-### `npm start`
+- Marca del auto: Americano, Asiático o Europeo
+- Año del vehículo
+- Tipo de cobertura: Básica o Completa
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Una vez enviado el formulario, la aplicación valida que todos los campos estén completos, muestra un spinner durante la carga y luego presenta un resumen con los datos seleccionados y el precio final estimado.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Funcionalidad principal
 
-### `npm test`
+La cotización se calcula sobre una base inicial de 2000 y luego aplica varios factores:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Ajuste por marca:
+  - Americano: +15%
+  - Asiático: +5%
+  - Europeo: +30%
+- Ajuste por antigüedad del vehículo:
+  - Se calcula la diferencia entre el año actual y el año del auto
+  - Se descuenta un 3% por cada año de diferencia
+- Ajuste por tipo de plan:
+  - Básico: +20%
+  - Completo: +50%
 
-### `npm run build`
+La lógica del cálculo se encuentra en los helpers del proyecto y se procesa desde el componente principal de la aplicación.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Stack tecnológico
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- React 17
+- Vite
+- Emotion (styled-components style API)
+- Vitest + Testing Library
+- PropTypes
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Estructura del proyecto
 
-### `npm run eject`
+```text
+Cotizador/
+├── public/
+│   ├── manifest.json
+│   ├── robots.txt
+├── src/
+│   ├── components/
+│   │   ├── Formulario.jsx
+│   │   ├── Header.jsx
+│   │   ├── Resumen.jsx
+│   │   ├── Resultado.jsx
+│   │   ├── Spinner.jsx
+│   │   └── Spinner.css
+│   ├── helpers/
+│   │   ├── formulario-helper.js
+│   │   └── resumen-helper.js
+│   ├── App.jsx
+│   ├── App.test.jsx
+│   ├── index.css
+│   ├── index.jsx
+│   ├── reportWebVitals.js
+│   └── setupTests.js
+├── index.html
+├── package.json
+├── vite.config.js
+├── README.md
+└── public/
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Requisitos previos
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Node.js 18 o superior
+- npm o yarn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Instalación
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm install
+```
 
-## Learn More
+## Ejecutar la aplicación
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm start
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Esto levanta el proyecto en modo desarrollo. Por defecto Vite suele servir la app en:
 
-### Code Splitting
+```text
+http://localhost:5173
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Scripts disponibles
 
-### Analyzing the Bundle Size
+```bash
+npm start       # inicia la aplicación en modo desarrollo
+npm run build   # genera la build de producción
+npm run preview # sirve la build para revisión local
+npm test        # ejecuta la suite de pruebas en modo interactivo
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Para pruebas en modo no interactivo con Vitest:
 
-### Making a Progressive Web App
+```bash
+npx vitest run
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Pruebas
 
-### Advanced Configuration
+El proyecto incluye una prueba básica que valida que el encabezado de la aplicación se renderiza correctamente.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+npm test -- --run
+```
 
-### Deployment
+## Flujo de uso
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. El usuario selecciona la marca del vehículo.
+2. Elige el año del auto.
+3. Selecciona el plan (básico o completo).
+4. Hace clic en “COTIZAR”.
+5. La aplicación valida los datos.
+6. Muestra un spinner durante 2 segundos.
+7. Presenta el resumen y el precio final calculado.
 
-### `npm run build` fails to minify
+## Notas
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- La lógica de cálculo está separada en helpers para facilitar mantenimiento y pruebas.
+- El proyecto usa estilos con Emotion, lo que permite mantener componentes con un diseño limpio y modular.
+- La aplicación está pensada como un ejemplo práctico de cotizador simple, sin backend ni persistencia de datos.
