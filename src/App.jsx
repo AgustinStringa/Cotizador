@@ -25,12 +25,13 @@ function App() {
     setResultado(cotizacion);
   }
   const [cargando, setCargando] = useState(false);
+  const title = "Cotizador de seguros automóviles";
 
   const { precioFinal } = resultado;
   return (
     <>
       <Appliaction>
-        <Header titulo={"Cotizador de seguros automóviles"} />
+        <Header titulo={title} />
         <Main>
           <Formulario actualizarCotizacion={actualizarCotizacion} setCargando={setCargando} />
 
