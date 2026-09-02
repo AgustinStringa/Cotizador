@@ -1,24 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import {
   obtenerDiferenciaAnios,
-  getAumentoMarca,
-  getAumentoTipoPlan,
+  getAumentoPorMarca,
+  getAumentoPorTipoPlan,
 } from "../helpers/formulario-helper";
 import PropTypes from "prop-types";
 
 const FormStyle = styled.form`
   width: 100%;
-  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Campo = styled.div`
-  margin: 2rem 0;
+  margin: 1rem 0;
   display: flex;
+  flex-basis: 50%;
+  flex-grow: 1;
   flex-direction: row;
-  flex-wrap: wrap;
+  column-gap: 0.5rem;
   align-items: center;
-  justify-content: space-between;
 `;
 
 const Select = styled.select`
@@ -36,13 +38,14 @@ const Option = styled.option`
 `;
 
 const Label = styled.label`
-  margin: 0 5rem 0 1rem;
   color: #333;
+  font-weight: bold;
   -webkit-appearance: none;
+  appearance: none;
 `;
 
 const ContenedorRadio = styled.div`
-  flex-basis: 75%;
+  flex-basis: 50%;
   flex-grow: 0;
   padding: 0.5rem;
   display: flex;
@@ -54,7 +57,6 @@ const ContenedorRadio = styled.div`
   }
   & > label {
     text-align: left;
-    margin: 1rem 0;
   }
 `;
 
@@ -62,22 +64,44 @@ const LabelRadio = styled.label`
   flex-basis: calc(35% - 1rem);
 `;
 const InputSubmit = styled.input`
-  background-color: #027685;
+  background-color: var(--primary-color);
   padding: 1rem;
   border: none;
   outline: none;
+  display: block;
+  margin-left: auto;
   color: #ffffff;
-  text-transform: uppercase;
-  width: 100%;
+  width: 120px;
+  border-radius: 0.5rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-weight: light;
-  letter-spacing: 1px;
+  font-weight: bold;
   font-size: 1.1rem;
   &:hover {
-    background-color: #0293a6;
     box-shadow: 2px 2px 1px gray;
   }
+`;
+const InputLimpiar = styled.button`
+  background-color: #6c757d;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  display: block;
+  margin-left: 0.5rem;
+  color: #ffffff;
+  width: 120px;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  font-size: 1.1rem;
+  &:hover {
+    box-shadow: 2px 2px 1px gray;
+  }
+`;
+const InputContainer = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 const Error = styled.div`
@@ -92,20 +116,42 @@ for (let i = new Date().getFullYear(); i >= 2000; i--) {
   yearsArray.push(i);
 }
 
-const Formulario = ({ actualizarCotizacion, setCargando }) => {
-  const [data, setData] = useState({
+const Formulario = ({
+  actualizarCotizacion,
+  setCargando,
+  hayCotizacion,
+  limpiarCotizacion,
+}) => {
+  const [formData, setFormData] = useState({
     marca: "",
     anio: "",
     tipoPlan: "",
   });
 
   const [error, setError] = useState(false);
+  const [marcas, setMarcas] = useState([]);
 
-  const { marca, anio, tipoPlan } = data;
+  useEffect(() => {
+    const cargarMarcas = async () => {
+      try {
+        const response = await fetch("/marcas.json");
+        const dataMarcas = await response.json();
+        const orderedMarcas = dataMarcas.sort((a, b) =>
+          a.Descripcion.localeCompare(b.Descripcion),
+        );
+        setMarcas(orderedMarcas);
+      } catch (err) {
+        setMarcas([]);
+      }
+    };
+    cargarMarcas();
+  }, []);
+
+  const { marca, anio, tipoPlan } = formData;
   const handleInputChange = (e) => {
-    const nuevoState = data;
+    const nuevoState = formData;
     nuevoState[`${e.target.name}`] = `${e.target.value}`;
-    setData({ ...nuevoState });
+    setFormData({ ...nuevoState });
   };
 
   const handleSubmit = (e) => {
@@ -119,14 +165,14 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
 
     const precioBase = 2000;
     var precio = precioBase;
-    precio = getAumentoMarca(marca, precio);
+    precio = getAumentoPorMarca(marca, precio);
 
     const diferenciaAnio = obtenerDiferenciaAnios(anio);
     if (diferenciaAnio) {
       const nuevoPorcentaje = 100 - diferenciaAnio * 3;
       precio = (nuevoPorcentaje * precio) / 100;
     }
-    precio = getAumentoTipoPlan(tipoPlan, precio);
+    precio = getAumentoPorTipoPlan(tipoPlan, precio);
     precio = parseFloat(precio).toFixed(2);
 
     setTimeout(() => {
@@ -139,6 +185,16 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
       });
     }, 2000);
   };
+
+  const handleLimpiar = () => {
+    setFormData({
+      marca: "",
+      anio: "",
+      tipoPlan: "",
+    });
+    setError(false);
+    limpiarCotizacion();
+  };
   return (
     <>
       {error ? (
@@ -149,25 +205,27 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
       ) : null}
       <FormStyle onSubmit={handleSubmit}>
         <Campo>
-          <Label htmlFor="marca">Marca </Label>
+          <Label htmlFor="marca">Marca *</Label>
           <Select
             name="marca"
             id="marca"
             onChange={handleInputChange}
             required
-            value={!marca ? "--Seleccione--" : marca}
+            value={!marca ? "0" : marca}
           >
-            <Option value="--Seleccione--" disabled>
-              --Seleccione--
+            <Option value="0" disabled>
+              -- Seleccione --
             </Option>
-            <Option value="Americano">Americano</Option>
-            <Option value="Asiatico">Asiático</Option>
-            <Option value="Europeo">Europeo</Option>
+            {marcas.map((marcaItem) => (
+              <Option key={marcaItem.Id} value={marcaItem.Descripcion}>
+                {marcaItem.Descripcion}
+              </Option>
+            ))}
           </Select>
         </Campo>
 
         <Campo>
-          <Label htmlFor="anio">Año </Label>
+          <Label htmlFor="anio">Año *</Label>
           <Select
             name="anio"
             id="anio"
@@ -176,7 +234,7 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
             value={!anio ? "--Seleccione--" : anio}
           >
             <Option value="--Seleccione--" disabled>
-              --Seleccione--
+              -- Seleccione --
             </Option>
             {yearsArray.map((year) => (
               <Option key={year} value={year}>
@@ -187,7 +245,7 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
         </Campo>
 
         <Campo>
-          <Label htmlFor="">Plan </Label>
+          <Label htmlFor="">Plan *</Label>
           <ContenedorRadio>
             <LabelRadio htmlFor="tipo-basico">
               <input
@@ -216,7 +274,14 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
           </ContenedorRadio>
         </Campo>
 
-        <InputSubmit type="submit" value="COTIZAR" />
+        <InputContainer>
+          <InputSubmit type="submit" value="Cotizar" />
+          {hayCotizacion ? (
+            <InputLimpiar type="button" onClick={handleLimpiar}>
+              Limpiar
+            </InputLimpiar>
+          ) : null}
+        </InputContainer>
       </FormStyle>
     </>
   );
@@ -225,9 +290,13 @@ const Formulario = ({ actualizarCotizacion, setCargando }) => {
 /**
  * actualizarCotizacion: funcion que actualiza el state general de la App. Se crea para no pasar directamente setCotizacion y "ejecutar la misma solo desde la app"
  * setCargando: funcion que cambia el valor del state cargando, encargado de la visibilidad del spinner de carga
+ * hayCotizacion: booleano que indica si hay una cotización activa en la aplicación
+ * limpiarCotizacion: funcion que limpia el estado de resultado en la App
  */
 Formulario.propTypes = {
   actualizarCotizacion: PropTypes.func.isRequired,
   setCargando: PropTypes.func.isRequired,
+  hayCotizacion: PropTypes.bool.isRequired,
+  limpiarCotizacion: PropTypes.func.isRequired,
 };
 export default Formulario;

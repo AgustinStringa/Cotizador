@@ -4,8 +4,10 @@ import styled from "@emotion/styled";
 import { primerMayuscula } from "../helpers/resumen-helper";
 
 const WrapResultado = styled.div`
-  background-color: #027685;
+  background-color: var(--secondary-color);
   padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.7rem;
   color: #ffffff;
   width: 100%;
   transition: all 0.3s ease;

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 // import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const ContenedorMessage = styled.div`
-  background-color: #26c6da;
+  background-color: var(--secondary-color);
   padding: 20px;
   font-weight: bold;
   margin: 1rem 0 1rem 0;
@@ -15,14 +15,14 @@ const ContenedorMessage = styled.div`
 const ContenedorCotizacion = styled.div`
   margin: 1rem 0;
   text-align: center;
+  border-radius: 0.7rem;
   padding: 0.5rem;
-  background-color: rgb(127, 224, 237);
+  background-color: var(--primary-color);
 `;
 
 const TextoCotizacion = styled.p`
-  color: #00838f;
+  color: #fff;
   font-size: 1.5rem;
-  text-transform: uppercase;
   font-weight: bold;
 `;
 

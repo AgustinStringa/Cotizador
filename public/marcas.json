@@ -1,0 +1,430 @@
+[
+    {
+        "Id": 46,
+        "Descripcion": "VOLKSWAGEN"
+    },
+    {
+        "Id": 12,
+        "Descripcion": "CHEVROLET"
+    },
+    {
+        "Id": 36,
+        "Descripcion": "RENAULT"
+    },
+    {
+        "Id": 17,
+        "Descripcion": "FIAT"
+    },
+    {
+        "Id": 18,
+        "Descripcion": "FORD"
+    },
+    {
+        "Id": 32,
+        "Descripcion": "PEUGEOT"
+    },
+    {
+        "Id": 1,
+        "Descripcion": "ACURA"
+    },
+    {
+        "Id": 63,
+        "Descripcion": "AGRALE"
+    },
+    {
+        "Id": 2,
+        "Descripcion": "ALEKO"
+    },
+    {
+        "Id": 3,
+        "Descripcion": "ALFA ROMEO"
+    },
+    {
+        "Id": 149,
+        "Descripcion": "ARCFOX"
+    },
+    {
+        "Id": 4,
+        "Descripcion": "ARO"
+    },
+    {
+        "Id": 5,
+        "Descripcion": "ASIA"
+    },
+    {
+        "Id": 6,
+        "Descripcion": "AUDI"
+    },
+    {
+        "Id": 7,
+        "Descripcion": "AUTOBIANCHI"
+    },
+    {
+        "Id": 118,
+        "Descripcion": "BAIC"
+    },
+    {
+        "Id": 153,
+        "Descripcion": "BAW"
+    },
+    {
+        "Id": 61,
+        "Descripcion": "BERTONE"
+    },
+    {
+        "Id": 8,
+        "Descripcion": "BMW"
+    },
+    {
+        "Id": 139,
+        "Descripcion": "BYD"
+    },
+    {
+        "Id": 124,
+        "Descripcion": "CHANGAN"
+    },
+    {
+        "Id": 108,
+        "Descripcion": "CHERY"
+    },
+    {
+        "Id": 156,
+        "Descripcion": "CHRYSLER"
+    },
+    {
+        "Id": 11,
+        "Descripcion": "CITROEN"
+    },
+    {
+        "Id": 129,
+        "Descripcion": "CORADIR"
+    },
+    {
+        "Id": 14,
+        "Descripcion": "DACIA"
+    },
+    {
+        "Id": 15,
+        "Descripcion": "DAEWOO"
+    },
+    {
+        "Id": 16,
+        "Descripcion": "DAIHATSU"
+    },
+    {
+        "Id": 119,
+        "Descripcion": "DFSK"
+    },
+    {
+        "Id": 13,
+        "Descripcion": "DODGE"
+    },
+    {
+        "Id": 142,
+        "Descripcion": "DOMY"
+    },
+    {
+        "Id": 151,
+        "Descripcion": "DONGFENG"
+    },
+    {
+        "Id": 135,
+        "Descripcion": "DONGFENG CAM"
+    },
+    {
+        "Id": 117,
+        "Descripcion": "DS AUTOMOBILES"
+    },
+    {
+        "Id": 51,
+        "Descripcion": "FERRARI"
+    },
+    {
+        "Id": 143,
+        "Descripcion": "FORTHING"
+    },
+    {
+        "Id": 115,
+        "Descripcion": "FOTON"
+    },
+    {
+        "Id": 79,
+        "Descripcion": "G.A.Z."
+    },
+    {
+        "Id": 141,
+        "Descripcion": "GAC"
+    },
+    {
+        "Id": 116,
+        "Descripcion": "GEELY"
+    },
+    {
+        "Id": 121,
+        "Descripcion": "GREAT WALL"
+    },
+    {
+        "Id": 52,
+        "Descripcion": "HAM-JIANG"
+    },
+    {
+        "Id": 122,
+        "Descripcion": "HAVAL"
+    },
+    {
+        "Id": 99,
+        "Descripcion": "HEIBAO"
+    },
+    {
+        "Id": 19,
+        "Descripcion": "HONDA"
+    },
+    {
+        "Id": 49,
+        "Descripcion": "HUMMER"
+    },
+    {
+        "Id": 20,
+        "Descripcion": "HYUNDAI"
+    },
+    {
+        "Id": 22,
+        "Descripcion": "ISUZU"
+    },
+    {
+        "Id": 41,
+        "Descripcion": "IVECO"
+    },
+    {
+        "Id": 81,
+        "Descripcion": "IZH"
+    },
+    {
+        "Id": 98,
+        "Descripcion": "JAC MOTORS"
+    },
+    {
+        "Id": 23,
+        "Descripcion": "JAGUAR"
+    },
+    {
+        "Id": 158,
+        "Descripcion": "JEEP"
+    },
+    {
+        "Id": 147,
+        "Descripcion": "JETOUR"
+    },
+    {
+        "Id": 113,
+        "Descripcion": "JMC"
+    },
+    {
+        "Id": 140,
+        "Descripcion": "JMEV"
+    },
+    {
+        "Id": 136,
+        "Descripcion": "KAIYI"
+    },
+    {
+        "Id": 154,
+        "Descripcion": "KARRY"
+    },
+    {
+        "Id": 24,
+        "Descripcion": "KIA"
+    },
+    {
+        "Id": 74,
+        "Descripcion": "KIA CAMION"
+    },
+    {
+        "Id": 25,
+        "Descripcion": "LADA"
+    },
+    {
+        "Id": 53,
+        "Descripcion": "LANCIA"
+    },
+    {
+        "Id": 150,
+        "Descripcion": "LEAPMOTOR"
+    },
+    {
+        "Id": 114,
+        "Descripcion": "LIFAN"
+    },
+    {
+        "Id": 152,
+        "Descripcion": "LYNK & CO"
+    },
+    {
+        "Id": 67,
+        "Descripcion": "MAESTRO"
+    },
+    {
+        "Id": 55,
+        "Descripcion": "MAHINDRA"
+    },
+    {
+        "Id": 102,
+        "Descripcion": "MASERATI"
+    },
+    {
+        "Id": 134,
+        "Descripcion": "MAXUS"
+    },
+    {
+        "Id": 26,
+        "Descripcion": "MAZDA"
+    },
+    {
+        "Id": 128,
+        "Descripcion": "MCLAREN"
+    },
+    {
+        "Id": 28,
+        "Descripcion": "MERCEDES BENZ"
+    },
+    {
+        "Id": 138,
+        "Descripcion": "MG"
+    },
+    {
+        "Id": 106,
+        "Descripcion": "MINI COOPER"
+    },
+    {
+        "Id": 29,
+        "Descripcion": "MITSUBISHI"
+    },
+    {
+        "Id": 77,
+        "Descripcion": "NAKAI (CHANGAN)"
+    },
+    {
+        "Id": 30,
+        "Descripcion": "NISSAN"
+    },
+    {
+        "Id": 31,
+        "Descripcion": "OPEL"
+    },
+    {
+        "Id": 94,
+        "Descripcion": "PIAGGIO"
+    },
+    {
+        "Id": 33,
+        "Descripcion": "POLONEZ"
+    },
+    {
+        "Id": 35,
+        "Descripcion": "PORSCHE"
+    },
+    {
+        "Id": 48,
+        "Descripcion": "PROTON"
+    },
+    {
+        "Id": 157,
+        "Descripcion": "RAM"
+    },
+    {
+        "Id": 65,
+        "Descripcion": "RANQUEL"
+    },
+    {
+        "Id": 148,
+        "Descripcion": "RELY"
+    },
+    {
+        "Id": 107,
+        "Descripcion": "ROLLS ROYCE"
+    },
+    {
+        "Id": 37,
+        "Descripcion": "ROVER-LAND ROV."
+    },
+    {
+        "Id": 38,
+        "Descripcion": "SAAB"
+    },
+    {
+        "Id": 103,
+        "Descripcion": "SANTANA"
+    },
+    {
+        "Id": 39,
+        "Descripcion": "SEAT"
+    },
+    {
+        "Id": 126,
+        "Descripcion": "SERO ELECTRIC"
+    },
+    {
+        "Id": 120,
+        "Descripcion": "SHINERAY"
+    },
+    {
+        "Id": 40,
+        "Descripcion": "SKODA"
+    },
+    {
+        "Id": 132,
+        "Descripcion": "SKYWELL"
+    },
+    {
+        "Id": 110,
+        "Descripcion": "SMART"
+    },
+    {
+        "Id": 127,
+        "Descripcion": "SOUEAST"
+    },
+    {
+        "Id": 42,
+        "Descripcion": "SUBARU"
+    },
+    {
+        "Id": 43,
+        "Descripcion": "SUZUKI"
+    },
+    {
+        "Id": 137,
+        "Descripcion": "TANK"
+    },
+    {
+        "Id": 57,
+        "Descripcion": "TATA"
+    },
+    {
+        "Id": 45,
+        "Descripcion": "TOYOTA"
+    },
+    {
+        "Id": 85,
+        "Descripcion": "UAZ"
+    },
+    {
+        "Id": 130,
+        "Descripcion": "VOLT"
+    },
+    {
+        "Id": 47,
+        "Descripcion": "VOLVO"
+    },
+    {
+        "Id": 100,
+        "Descripcion": "WULING MOTORS"
+    },
+    {
+        "Id": 145,
+        "Descripcion": "XEV"
+    },
+    {
+        "Id": 125,
+        "Descripcion": "ZANELLA"
+    }
+]

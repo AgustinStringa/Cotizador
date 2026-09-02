@@ -2,8 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
 const ContenedorHeader = styled.header`
-  background-color: #26c6da;
-  padding: 10px;
+  background-color: var(--primary-color);
+  padding: 0.5rem;
   font-weight: bold;
   color: #ffffff;
 `;
@@ -11,8 +11,7 @@ const ContenedorHeader = styled.header`
 const H1Header = styled.h1`
   color: #ffffff;
   font-weight: bold;
-  font-size: 2.5rem;
-  font-family: "Slabo 27px", serif;
+  font-size: 1.5rem;
 `;
 const Header = ({ titulo }) => {
   return (

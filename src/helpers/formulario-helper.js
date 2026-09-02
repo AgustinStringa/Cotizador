@@ -12,17 +12,13 @@ export function obtenerDiferenciaAnios(anio) {
  * @param {precio al momento} precio 
  * @returns precioAumentado
  */
-export function getAumentoMarca(marca, precio) {
-    if (marca === "Europeo") {
-        precio = precio + (30 * precio) / 100;
+export function getAumentoPorMarca(marca, precio) {
+    const expensivesBrands = ["ALFA ROMEO", "JEEP", "AUDI", "BMW", "RAM", "FERARI", "PORSCHE", "MINI COOPER", "MERCEDES BENZ", "MCLAREN", "MASERATI"];
+
+    if (expensivesBrands.includes(marca)) {
+        precio *= 1.7
     }
-    if (marca === "Americano") {
-        precio = precio + (15 * precio) / 100;
-    }
-    if (marca === "Asiatico") {
-        precio = precio + (5 * precio) / 100;
-    }
-    return precio;
+    return precio *= 1.3;
 }
 /**
  * 
@@ -30,7 +26,7 @@ export function getAumentoMarca(marca, precio) {
  * @param {*precio al momento} precio 
  * @returns precio aumentado
  */
-export function getAumentoTipoPlan(tipoPlan, precio) {
+export function getAumentoPorTipoPlan(tipoPlan, precio) {
     if (tipoPlan === "completo") {
         precio = (150 * precio) / 100;
     }
