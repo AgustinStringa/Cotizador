@@ -14,18 +14,7 @@ Una vez enviado el formulario, la aplicación valida que todos los campos estén
 
 ## Funcionalidad principal
 
-La cotización se calcula sobre una base inicial de 2000 y luego aplica varios factores:
-
-- Ajuste por marca:
-  - Americano: +15%
-  - Asiático: +5%
-  - Europeo: +30%
-- Ajuste por antigüedad del vehículo:
-  - Se calcula la diferencia entre el año actual y el año del auto
-  - Se descuenta un 3% por cada año de diferencia
-- Ajuste por tipo de plan:
-  - Básico: +20%
-  - Completo: +50%
+La cotización se calcula sobre una base inicial de 2000 y luego aplica factores según la marca elegida.
 
 La lógica del cálculo se encuentra en los helpers del proyecto y se procesa desde el componente principal de la aplicación.
 
@@ -36,37 +25,6 @@ La lógica del cálculo se encuentra en los helpers del proyecto y se procesa de
 - Emotion (styled-components style API)
 - Vitest + Testing Library
 - PropTypes
-
-## Estructura del proyecto
-
-```text
-Cotizador/
-├── public/
-│   ├── manifest.json
-│   ├── robots.txt
-├── src/
-│   ├── components/
-│   │   ├── Formulario.jsx
-│   │   ├── Header.jsx
-│   │   ├── Resumen.jsx
-│   │   ├── Resultado.jsx
-│   │   ├── Spinner.jsx
-│   │   └── Spinner.css
-│   ├── helpers/
-│   │   ├── formulario-helper.js
-│   │   └── resumen-helper.js
-│   ├── App.jsx
-│   ├── App.test.jsx
-│   ├── index.css
-│   ├── index.jsx
-│   ├── reportWebVitals.js
-│   └── setupTests.js
-├── index.html
-├── package.json
-├── vite.config.js
-├── README.md
-└── public/
-```
 
 ## Requisitos previos
 
@@ -129,3 +87,4 @@ npm test -- --run
 - La lógica de cálculo está separada en helpers para facilitar mantenimiento y pruebas.
 - El proyecto usa estilos con Emotion, lo que permite mantener componentes con un diseño limpio y modular.
 - La aplicación está pensada como un ejemplo práctico de cotizador simple, sin backend ni persistencia de datos.
+- Busca incorporar conceptos de react como useState y useEffect.
