@@ -5,7 +5,7 @@ import Formulario from "./components/Formulario";
 import React, { useState } from "react";
 import Resumen from "./components/Resumen";
 import Resultado from "./components/Resultado";
-import Spinner from "./components/Spinner";
+import { Spinner } from "../shared";
 
 const Application = styled.div`
   width: 100%;
@@ -45,7 +45,7 @@ function App() {
             limpiarCotizacion={limpiarCotizacion}
           />
 
-          {cargando ? <Spinner /> : null}
+          {cargando ? <Spinner variant="chase" text="Calculando cotización..." /> : null}
 
           {Object.keys(resultado).length > 0 && !cargando ? (
             <Resumen resultado={resultado} />
