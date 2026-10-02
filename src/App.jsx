@@ -5,7 +5,7 @@ import Formulario from "./components/Formulario";
 import React, { useState } from "react";
 import Resumen from "./components/Resumen";
 import Resultado from "./components/Resultado";
-import { Spinner } from "../shared";
+import { Spinner, Header as SharedHeader, Footer as SharedFooter } from "../shared";
 
 const Application = styled.div`
   width: 100%;
@@ -34,9 +34,9 @@ function App() {
   const { precioFinal } = resultado;
   const hayCotizacion = Object.keys(resultado).length > 0 && !cargando;
   return (
-    <>
-      <Application>
-        <Header titulo={title} />
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <SharedHeader title={title} variant="slate" />
+      <Application style={{ flex: 1 }}>
         <Main>
           <Formulario
             actualizarCotizacion={actualizarCotizacion}
@@ -55,7 +55,12 @@ function App() {
           ) : null}
         </Main>
       </Application>
-    </>
+      <SharedFooter
+        title="Cotizador de Seguros"
+        description="Calcula la cotización del seguro de tu vehículo en tiempo real."
+        variant="slate"
+      />
+    </div>
   );
 }
 
