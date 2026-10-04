@@ -1,11 +1,13 @@
+import { getYearDifference } from "../../shared";
+
 /**
- * 
- * @param {anio al cual calcular diferencia con el año actual} anio 
- * @returns 
+ * @param {number|string} anio Año al cual calcular diferencia con el año actual.
+ * @returns {number}
  */
 export function obtenerDiferenciaAnios(anio) {
-    return (new Date().getFullYear() - anio);
+  return getYearDifference(Number(anio));
 }
+
 /**
  * 
  * @param {marca para efectuar aumento} marca 

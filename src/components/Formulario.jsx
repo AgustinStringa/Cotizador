@@ -5,7 +5,9 @@ import {
   getAumentoPorMarca,
   getAumentoPorTipoPlan,
 } from "../helpers/formulario-helper";
+import { getYearRange } from "../../shared";
 import PropTypes from "prop-types";
+
 
 const FormStyle = styled.form`
   width: 100%;
@@ -111,10 +113,8 @@ const Error = styled.div`
   padding: 2rem;
   margin: 1rem 0;
 `;
-var yearsArray = [];
-for (let i = new Date().getFullYear(); i >= 2000; i--) {
-  yearsArray.push(i);
-}
+const yearsArray = getYearRange(2000);
+
 
 const Formulario = ({
   actualizarCotizacion,
